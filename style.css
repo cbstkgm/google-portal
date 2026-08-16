@@ -1,0 +1,53 @@
+/* Custom CSS for Google Portal */
+
+/* Özel Scrollbar (Tarayıcı destekli) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #CBD5E1; /* Tailwind slate-300 */
+    border-radius: 20px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background-color: #475569; /* Tailwind slate-600 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #94A3B8; /* Tailwind slate-400 */
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background-color: #64748B; /* Tailwind slate-500 */
+}
+
+/* Material Design Elevation (Hover Effects) */
+.material-card {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.material-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05), 0 6px 6px rgba(0,0,0,0.05);
+}
+
+.dark .material-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 6px 6px rgba(0,0,0,0.2);
+}
+
+/* Glassmorphism utility (Opsiyonel kullanım için) */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.dark .glass {
+    background: rgba(31, 41, 55, 0.7);
+}
