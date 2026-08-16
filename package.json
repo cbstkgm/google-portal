@@ -1,0 +1,21 @@
+{
+  "name": "google-portal",
+  "version": "1.0.0",
+  "description": "🚀 **Canlı Demo:** [https://cbstkgm.github.io/google-portal/](https://cbstkgm.github.io/google-portal/)",
+  "main": "app.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbstkgm/google-portal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cbstkgm/google-portal/issues"
+  },
+  "homepage": "https://github.com/cbstkgm/google-portal#readme"
+}

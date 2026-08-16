@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Portal</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
@@ -19,43 +22,11 @@
     <!-- Vis.js (Zihin Haritası) -->
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 
-    <!-- Tailwind CSS (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        google: {
-                            blue: '#4285F4',
-                            red: '#EA4335',
-                            yellow: '#FBBC05',
-                            green: '#34A853',
-                        },
-                        surface: {
-                            light: '#F8F9FA',
-                            dark: '#1F2937'
-                        }
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="bg-surface-light text-gray-800 dark:bg-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
+<body class="bg-surface-light text-gray-800 dark:bg-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300 relative min-h-screen">
+    
+    <!-- Arkaplan Animasyonu -->
+    <canvas id="bg_canvas" class="fixed inset-0 w-full h-full z-[-1] pointer-events-none opacity-40 dark:opacity-30"></canvas>
 
     <!-- Header -->
     <header class="fixed top-0 w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 z-40 transition-colors duration-300">
@@ -64,7 +35,7 @@
             <!-- Logo & Hamburger Menu (Mobile) -->
             <div class="flex items-center gap-4 w-auto flex-shrink-0">
                 <button id="btn_mobil_menu" class="lg:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                    <span class="material-symbols-outlined">menu</span>
+                    <span class="material-symbols-rounded">menu</span>
                 </button>
                 <a href="#" class="text-2xl font-bold tracking-tight whitespace-nowrap" id="logo">
                     <span class="text-google-blue">G</span><span class="text-google-red">o</span><span class="text-google-yellow">o</span><span class="text-google-blue">g</span><span class="text-google-green">l</span><span class="text-google-red">e</span>
@@ -75,12 +46,17 @@
             <!-- Arama Çubuğu -->
             <div class="flex-1 max-w-2xl hidden md:flex mx-4">
                 <div class="relative w-full group">
-                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-google-blue transition-colors">search</span>
+                    <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-google-blue transition-colors">search</span>
                     <input type="text" id="arama_kutusu" placeholder="Uygulama, donanım veya araç ara..." 
-                        class="w-full h-12 pl-12 pr-10 bg-gray-100 dark:bg-gray-700 border-none rounded-full focus:ring-2 focus:ring-google-blue focus:bg-white dark:focus:bg-gray-800 transition-all shadow-inner placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100">
-                    <button id="btn_arama_temizle" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center">
-                        <span class="material-symbols-outlined text-[18px]">close</span>
-                    </button>
+                        class="w-full h-12 pl-12 pr-16 bg-gray-100 dark:bg-gray-700 border-none rounded-full focus:ring-2 focus:ring-google-blue focus:bg-white dark:focus:bg-gray-800 transition-all shadow-inner placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100">
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                        <button id="btn_sesli_arama" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center" title="Sesle Ara">
+                            <span class="material-symbols-rounded text-[18px]">mic</span>
+                        </button>
+                                                <button id="btn_arama_temizle" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center">
+                            <span class="material-symbols-rounded text-[18px]">close</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -91,30 +67,32 @@
                     <!-- Görünüm Değiştirici -->
                     <div class="flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
                         <button id="btn_mindmap" class="p-1.5 rounded-md text-gray-500 dark:text-gray-400 hover:text-google-blue dark:hover:text-blue-400 transition-all flex items-center gap-1" onclick="zihin_haritasi_ac()" title="Entegrasyon Haritası">
-                            <span class="material-symbols-outlined text-[20px] block">account_tree</span>
+                            <span class="material-symbols-rounded text-[20px] block">account_tree</span>
                             <span class="text-xs font-semibold pr-1 hidden lg:block">Zihin Haritası</span>
                         </button>
                     </div>
                     <div class="hidden sm:flex items-center bg-[#F0F4F8] dark:bg-gray-800 rounded-xl p-1 gap-1">
                         <button id="btn_grid_view" onclick="gorunum_degistir('grid')" title="Kart Görünümü" class="flex items-center justify-center w-8 h-8 rounded-lg transition-all">
-                            <span class="material-symbols-outlined text-[20px]">grid_view</span>
+                            <span class="material-symbols-rounded text-[20px]">grid_view</span>
                         </button>
                         <button id="btn_list_view" onclick="gorunum_degistir('list')" title="Liste Görünümü" class="flex items-center justify-center w-8 h-8 rounded-lg transition-all">
-                            <span class="material-symbols-outlined text-[20px]">view_list</span>
+                            <span class="material-symbols-rounded text-[20px]">view_list</span>
                         </button>
                     </div>
-                    <span id="urun_sayisi_etiket" class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-semibold px-3 py-1.5 rounded-full whitespace-nowrap"></span>
                 </div>
                 
                 <div class="w-px h-6 bg-gray-200 dark:bg-gray-700 hidden sm:block mx-1"></div>
 
                 <!-- Mobil Arama İkonu -->
                 <button id="btn_mobil_arama" class="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                    <span class="material-symbols-outlined">search</span>
+                    <span class="material-symbols-rounded">search</span>
+                </button>
+                <button id="btn_rastgele" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Rastgele Keşfet (Zar At)" onclick="rastgele_urun_sec()">
+                    <span class="material-symbols-rounded text-google-green font-bold">casino</span>
                 </button>
                 <button id="btn_tema_degistir" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" aria-label="Temayı Değiştir">
-                    <span class="material-symbols-outlined dark:hidden">dark_mode</span>
-                    <span class="material-symbols-outlined hidden dark:block text-google-yellow">light_mode</span>
+                    <span class="material-symbols-rounded dark:hidden">dark_mode</span>
+                    <span class="material-symbols-rounded hidden dark:block text-google-yellow">light_mode</span>
                 </button>
             </div>
         </div>
@@ -122,11 +100,16 @@
         <!-- Mobil Arama Çubuğu (Gizli) -->
         <div id="mobil_arama_alani" class="hidden md:hidden px-4 pb-3">
             <div class="relative w-full">
-                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-                <input type="text" id="mobil_arama_kutusu" placeholder="Ara..." class="w-full h-10 pl-12 pr-10 bg-gray-100 dark:bg-gray-700 rounded-full focus:ring-2 focus:ring-google-blue text-gray-900 dark:text-gray-100">
-                <button id="btn_mobil_arama_temizle" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center">
-                    <span class="material-symbols-outlined text-[18px]">close</span>
-                </button>
+                <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+                <input type="text" id="mobil_arama_kutusu" placeholder="Ara..." class="w-full h-10 pl-12 pr-16 bg-gray-100 dark:bg-gray-700 rounded-full focus:ring-2 focus:ring-google-blue text-gray-900 dark:text-gray-100">
+                <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                    <button id="btn_mobil_sesli_arama" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center">
+                        <span class="material-symbols-rounded text-[18px]">mic</span>
+                    </button>
+                                        <button id="btn_mobil_arama_temizle" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center">
+                        <span class="material-symbols-rounded text-[18px]">close</span>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -137,7 +120,10 @@
         <!-- Sidebar (Kategoriler) -->
         <aside id="sidebar" class="w-full lg:w-64 flex-shrink-0 mt-4 lg:mt-8 hidden lg:block transition-all">
             <div class="sticky top-24 bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 p-4">
-                <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4 px-4">Kategoriler</h2>
+                <div class="flex items-center justify-between mb-4 px-4">
+                    <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Kategoriler</h2>
+                    <span class="urun_sayisi_etiket bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap"></span>
+                </div>
                 <ul id="kategori_listesi" class="space-y-1">
                     <!-- Kategoriler JS ile buraya yüklenecek -->
                 </ul>
@@ -152,10 +138,13 @@
                 <div class="flex justify-between items-center mb-8">
                     <span class="text-xl font-bold">Menü</span>
                     <button id="btn_mobil_kapat" class="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <span class="material-symbols-outlined">close</span>
+                        <span class="material-symbols-rounded">close</span>
                     </button>
                 </div>
-                <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Kategoriler</h2>
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Kategoriler</h2>
+                    <span class="urun_sayisi_etiket bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap"></span>
+                </div>
                 <ul id="mobil_kategori_listesi" class="space-y-1">
                     <!-- Mobil Kategoriler JS ile buraya yüklenecek -->
                 </ul>
@@ -176,7 +165,7 @@
             <!-- Boş Durum (Empty State) -->
             <div id="bos_durum" class="hidden flex-col items-center justify-center py-20 text-center animate-fade-in-up">
                 <div class="w-32 h-32 mb-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                    <span class="material-symbols-outlined text-6xl text-google-blue">science</span>
+                    <span class="material-symbols-rounded text-6xl text-google-blue">science</span>
                 </div>
                 <h3 class="text-2xl font-bold mb-2">Google henüz bunu icat etmedi!</h3>
                 <p class="text-gray-500 dark:text-gray-400 max-w-md">Aradığınız kriterlere uygun bir ürün bulamadık. Başka bir kelime ile tekrar deneyin veya yeni bir kategori seçin.</p>
@@ -196,10 +185,10 @@
             <!-- Modal Header -->
             <div class="relative h-32 bg-gradient-to-r from-google-blue/20 via-google-red/10 to-google-yellow/20 dark:from-google-blue/10 dark:via-gray-800 dark:to-google-yellow/10 flex items-center justify-center">
                 <button id="btn_modal_kapat" class="absolute top-4 right-4 p-2 bg-white/50 dark:bg-black/20 hover:bg-white dark:hover:bg-black/40 rounded-full backdrop-blur-md transition-colors z-10">
-                    <span class="material-symbols-outlined text-gray-700 dark:text-gray-200">close</span>
+                    <span class="material-symbols-rounded text-gray-700 dark:text-gray-200">close</span>
                 </button>
                 <div class="absolute -bottom-10 w-20 h-20 bg-white dark:bg-gray-700 rounded-2xl shadow-lg flex items-center justify-center rotate-3 group-hover:rotate-6 transition-transform">
-                    <span id="modal_ikon" class="material-symbols-outlined text-4xl text-google-blue">apps</span>
+                    <span id="modal_ikon" class="material-symbols-rounded text-4xl text-google-blue">apps</span>
                 </div>
             </div>
 
@@ -217,7 +206,7 @@
 
                 <!-- Fun Fact (Eğlenceli Bilgi) -->
                 <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-2xl p-4 mb-8 flex gap-4 items-start">
-                    <span class="material-symbols-outlined text-google-blue mt-1">lightbulb</span>
+                    <span class="material-symbols-rounded text-google-blue mt-1">lightbulb</span>
                     <div>
                         <h4 class="text-sm font-bold text-blue-900 dark:text-blue-300 mb-1">Biliyor muydunuz?</h4>
                         <p id="modal_bilgi" class="text-sm text-blue-800 dark:text-blue-200/80">Eğlenceli bilgi buraya gelecek.</p>
@@ -230,20 +219,20 @@
                 <!-- Aksiyon Butonları -->
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <button id="modal_zihin_btn" onclick="tetikle_zihin_haritasi()" class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-purple-50 hover:bg-purple-100 dark:bg-purple-900/30 dark:hover:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-semibold rounded-full transition-colors shadow-sm hover:shadow">
-                        <span class="material-symbols-outlined text-[20px]">account_tree</span>
+                        <span class="material-symbols-rounded text-[20px]">account_tree</span>
                         <span>Entegrasyon Haritası</span>
                     </button>
                     <a id="modal_link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-full hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                         <span>Resmi Siteye Git</span>
-                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        <span class="material-symbols-rounded text-sm">open_in_new</span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Uygulama Mantığı -->
-    <script src="app.js?v=8"></script>
+    <!-- Uygulama Mantığı (Vite Modülü) -->
+    <script type="module" src="/src/js/main.js"></script>
 
     <!-- Zihin Haritası (Mindmap) Modalı -->
     <div id="mindmap_modali" class="fixed inset-0 z-[60] hidden items-center justify-center bg-white dark:bg-gray-900 transition-opacity duration-300 opacity-0">
@@ -251,7 +240,7 @@
         <div class="absolute top-0 left-0 w-full p-4 flex justify-between items-center bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-[61] border-b border-gray-200 dark:border-gray-800">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-blue-50 dark:bg-blue-900/30 text-google-blue rounded-xl flex items-center justify-center">
-                    <span class="material-symbols-outlined">account_tree</span>
+                    <span class="material-symbols-rounded">account_tree</span>
                 </div>
                 <div>
                     <h2 class="text-lg font-bold text-gray-900 dark:text-white leading-tight">Google Ekosistem Entegrasyonu</h2>
@@ -259,7 +248,7 @@
                 </div>
             </div>
             <button onclick="zihin_haritasi_kapat()" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                <span class="material-symbols-outlined">close</span>
+                <span class="material-symbols-rounded">close</span>
             </button>
         </div>
         

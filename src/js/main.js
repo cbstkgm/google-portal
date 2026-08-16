@@ -1,3 +1,6 @@
+import '../../style.css';
+import './particle_animation.js';
+
 // --- VERİ TABANI (JSON/Array) ---
 const urunler_verisi = [
 
@@ -30,7 +33,10 @@ const urunler_verisi = [
     { id: "dev_web_designer", name: "Google Web Designer", pricing: "Ücretsiz", category: "Geliştirici Araçları", short_description: "Etkileşimli HTML5 web içerikleri için profesyonel IDE.", long_description: "Geliştirici ve tasarımcıların kod yazmadan veya doğrudan kod düzenleyiciyi kullanarak modern, etkileşimli HTML5 reklamlar ve web sayfaları oluşturmasına olanak tanıyan bir masaüstü uygulamasıdır.", icon_name: "web", link_url: "https://webdesigner.withgoogle.com/", tags: ["ide", "html5", "design"], fun_fact: "Web Designer, 3D CSS desteği ile doğrudan tarayıcı içinde çalışabilen üç boyutlu ortamlar tasarlamanızı sağlar." },
     { id: "dev_blockly", name: "Blockly", pricing: "Ücretsiz", category: "Geliştirici Araçları", short_description: "Görsel, sürükle-bırak blok tabanlı programlama kütüphanesi.", long_description: "Kod yazmayı oyunlaştıran ve görsel blokları birleştirerek JavaScript, Python, PHP gibi dillerde gerçek kod üretilmesini sağlayan açık kaynaklı eğitim aracıdır.", icon_name: "extension", link_url: "https://developers.google.com/blockly", tags: ["education", "visual-coding", "ide"], fun_fact: "Blockly, popüler MIT Scratch platformunun altyapısında da kullanılan görsel programlama motorunun ta kendisidir." },
 
-    { id: "dev_antigravity", name: "Antigravity IDE", pricing: "Ücretsiz & Ücretli", category: "Geliştirici Araçları", short_description: "DeepMind destekli otonom AI kodlama platformu.", long_description: "Antigravity IDE, Google DeepMind tarafından geliştirilen ve yapay zeka ile doğrudan pair programming yapmanıza, otonom görevler atamanıza olanak tanıyan yeni nesil bulut tabanlı bir geliştirme ortamıdır.", icon_name: "rocket_launch", link_url: "https://deepmind.google/", tags: ["ide", "ai-coding", "agent"], fun_fact: "Antigravity IDE, kod yazan yapay zekalara 'sıfır müdahale' ile otonom görevler verebileceğiniz eşsiz bir altyapıya sahiptir." },
+    { id: "dev_antigravity_2_0", name: "Antigravity 2.0", pricing: "Ücretsiz & Ücretli", category: "Geliştirici Araçları", short_description: "Yeni nesil otonom ajan (agent) platformu.", long_description: "Antigravity 2.0, kodlama ve yazılım geliştirme süreçlerini yapay zeka ajanlarıyla uçtan uca otomatize eden en gelişmiş Google DeepMind otonom sistemidir.", icon_name: "architecture", link_url: "https://deepmind.google/", tags: ["agent", "ai", "platform"], fun_fact: "Antigravity 2.0, devasa projeleri kendi kendine planlayıp haftalar sürecek işleri dakikalar içinde otonom olarak tamamlayabilir." },
+    { id: "dev_antigravity_cli", name: "Antigravity CLI", pricing: "Ücretsiz", category: "Geliştirici Araçları", short_description: "Yapay zeka asistanı için komut satırı arayüzü.", long_description: "Antigravity ajanlarını ve yapay zeka komutlarını doğrudan terminalinizden çalıştırmanızı, yerel dosyalarınızda değişiklik yaptırmanızı sağlayan güçlü CLI aracıdır.", icon_name: "terminal", link_url: "https://deepmind.google/", tags: ["cli", "terminal", "ai-coding"], fun_fact: "Antigravity CLI sayesinde terminalden çıkmadan doğal dille projenize yeni özellikler ekleyebilirsiniz." },
+    { id: "dev_antigravity_ide", name: "Antigravity IDE", pricing: "Ücretsiz & Ücretli", category: "Geliştirici Araçları", short_description: "DeepMind destekli otonom AI kodlama platformu.", long_description: "Google DeepMind tarafından geliştirilen ve yapay zeka ile doğrudan pair programming yapmanıza, otonom görevler atamanıza olanak tanıyan yeni nesil bulut tabanlı bir geliştirme ortamıdır.", icon_name: "code", link_url: "https://deepmind.google/", tags: ["ide", "ai-coding", "agent"], fun_fact: "Antigravity IDE, kod yazan yapay zekalara 'sıfır müdahale' ile otonom görevler verebileceğiniz eşsiz bir altyapıya sahiptir." },
+    { id: "dev_antigravity_sdk", name: "Antigravity SDK", pricing: "Ücretsiz", category: "Geliştirici Araçları", short_description: "Otonom yapay zeka entegrasyon kütüphanesi.", long_description: "Kendi uygulamalarınıza veya araçlarınıza Antigravity'nin gelişmiş akıl yürütme (reasoning) ve kodlama yeteneklerini entegre etmenizi sağlayan geliştirici kitidir.", icon_name: "integration_instructions", link_url: "https://deepmind.google/", tags: ["sdk", "api", "integration"], fun_fact: "Bu SDK ile kendi yazdığınız sıradan bir arayüzü, saniyeler içinde otonom kararlar verebilen bir ajana dönüştürebilirsiniz." },
     { id: "dev_idx", name: "Project IDX", pricing: "Ücretsiz & Ücretli", category: "Geliştirici Araçları", short_description: "Tarayıcı tabanlı yapay zeka destekli full-stack IDE.", long_description: "Project IDX, Google'ın Firebase, Google Cloud ve Gemini yapay zekasını tek bir tarayıcı penceresinde birleştiren tam donanımlı bulut geliştirme çalışma alanıdır.", icon_name: "terminal", link_url: "https://idx.dev", tags: ["ide", "full-stack", "firebase"], fun_fact: "Project IDX tamamen bulut üzerinde çalışır, yani herhangi bir ortam kurmadan doğrudan tarayıcınızdan uygulamanızı derleyebilirsiniz." },
     { id: "ai_colab", name: "Google Colab", pricing: "Ücretsiz", category: "Yapay Zeka", short_description: "Bulut tabanlı ücretsiz Jupyter notebook ortamı.", long_description: "Veri bilimi, makine öğrenimi ve yapay zeka projeleri için hiçbir kurulum gerektirmeden tarayıcı üzerinden Python kodu yazıp çalıştırmanızı sağlayan platformdur.", icon_name: "science", link_url: "https://colab.research.google.com/", tags: ["python", "machine-learning", "notebook"], fun_fact: "Colab, öğrencilere ve araştırmacılara tamamen ücretsiz olarak yapay zeka model eğitiminde kullanılan güçlü GPU ve TPU donanımları sağlar." },
     { id: "ws_vids", name: "Google Vids", pricing: "Ücretli", category: "Workspace / Üretkenlik", short_description: "Yapay zeka destekli profesyonel video oluşturucu.", long_description: "Workspace ekosistemine entegre çalışan Vids, bir doküman yazar gibi kolayca profesyonel iş videoları oluşturmanızı, seslendirmenizi ve kurgulamanızı sağlayan araçtır.", icon_name: "movie_creation", link_url: "https://workspace.google.com/products/vids/", tags: ["video", "üretkenlik", "ai"], fun_fact: "Google Vids, metin komutlarınızdan saniyeler içinde senaryolar, taslak sahneler ve hatta profesyonel seslendirmeler üretebilir." },
@@ -504,16 +510,16 @@ const manual_svgs = {
 };
 const custom_logos = Object.assign({}, scraped_logos, manual_svgs); // Manuel SVG oncelikli
 // --- DURUM YÖNETİMİ (State) ---
-let aktif_kategori = "Tümü";
-let aktif_gorunum = 'list'; // Default
-let arama_metni = "";
+let arama_metni = '';
+let aktif_kategori = 'Tümü';
+let aktif_gorunum = localStorage.getItem('gorunum') || 'grid'; // Varsayılan görünüm localStorage'dan alınır
 
 // --- DOM SEÇİCİLERİ ---
 const el_kategori_listesi = document.getElementById('kategori_listesi');
 const el_mobil_kategori_listesi = document.getElementById('mobil_kategori_listesi');
 const el_urunler_grid = document.getElementById('urunler_grid');
 const el_aktif_kategori_baslik = document.getElementById('aktif_kategori_baslik');
-const el_urun_sayisi_etiket = document.getElementById('urun_sayisi_etiket');
+const el_urun_sayisi_etiketler = document.querySelectorAll('.urun_sayisi_etiket');
 const el_bos_durum = document.getElementById('bos_durum');
 const el_arama_kutusu = document.getElementById('arama_kutusu');
 const el_mobil_arama_kutusu = document.getElementById('mobil_arama_kutusu');
@@ -598,7 +604,7 @@ function kategorileri_yukle() {
         const html = `
             <li>
                 <button onclick="kategori_degistir('${kategori}')" class="w-full flex items-center gap-3 px-4 py-3 rounded-l-xl transition-all ${aktifClass}">
-                    <span class="material-symbols-outlined text-[20px]">${ikonStr}</span>
+                    <span class="material-symbols-rounded text-[20px]">${ikonStr}</span>
                     <span class="text-sm">${kategori}</span>
                 </button>
             </li>
@@ -621,7 +627,7 @@ function kategori_degistir(yeni_kategori) {
 // 3. Ürünleri Çiz (Grid)
 function urunleri_ciz(urunler) {
     el_urunler_grid.innerHTML = "";
-    el_urun_sayisi_etiket.textContent = `${urunler.length} Ürün`;
+    el_urun_sayisi_etiketler.forEach(el => el.textContent = `${urunler.length} Ürün`);
 
     if (urunler.length === 0) {
         el_urunler_grid.classList.add('hidden');
@@ -631,6 +637,8 @@ function urunleri_ciz(urunler) {
         el_urunler_grid.classList.remove('hidden');
         el_bos_durum.classList.add('hidden');
         el_bos_durum.classList.remove('flex');
+
+        let htmlBuffer = "";
 
         urunler.forEach((urun, index) => {
             // Animasyon gecikmesi (stagger effect) -> kart sayısı çok olunca hızlı gelsin
@@ -672,7 +680,7 @@ function urunleri_ciz(urunler) {
                     <div class="flex items-start justify-between mb-4 relative z-10">
                         <div class="w-14 h-14 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center mb-4 shadow-sm border border-gray-100 dark:border-gray-700">
                             <img src="${logoUrl}" class="w-8 h-8 object-contain drop-shadow-sm" alt="${urun.name}" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg';">
-                            <span class="material-symbols-outlined text-3xl text-gray-400 hidden">${urun.icon_name}</span>
+                            <span class="material-symbols-rounded text-3xl text-gray-400 hidden">${urun.icon_name}</span>
                         </div>
                         <span class="text-xs font-medium px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">${urun.category}</span>
                         <span class="text-[10px] font-bold px-2 py-1 rounded-full border ${pClass}">${urun.pricing}</span>
@@ -694,7 +702,7 @@ function urunleri_ciz(urunler) {
                     
                     <!-- İkon Kutusu -->
                     <div class="flex-shrink-0 w-12 h-12 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center shadow-sm border border-gray-100 dark:border-gray-700 relative">
-                        <span class="material-symbols-outlined text-2xl text-gray-300 dark:text-gray-600 absolute">${urun.icon_name}</span>
+                        <span class="material-symbols-rounded text-2xl text-gray-300 dark:text-gray-600 absolute">${urun.icon_name}</span>
                         <img src="${logoUrl}" class="w-7 h-7 object-contain drop-shadow-sm relative z-10" alt="${urun.name}" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg'; this.style.opacity='1';">
                     </div>
                     
@@ -718,12 +726,14 @@ function urunleri_ciz(urunler) {
             `;
             
             if (aktif_gorunum === 'grid') {
-                el_urunler_grid.innerHTML += kartHtml;
+                htmlBuffer += kartHtml;
             } else {
-                el_urunler_grid.innerHTML += listeHtml;
+                htmlBuffer += listeHtml;
             }
 
         });
+        
+        el_urunler_grid.innerHTML = htmlBuffer;
     }
 }
 
@@ -751,7 +761,14 @@ function urunleri_filtrele_ve_ciz() {
     }
 
     filtrelenmis_urunler.sort((a, b) => a.name.localeCompare(b.name, 'tr'));
-    urunleri_ciz(filtrelenmis_urunler);
+    
+    if (document.startViewTransition) {
+        document.startViewTransition(() => {
+            urunleri_ciz(filtrelenmis_urunler);
+        });
+    } else {
+        urunleri_ciz(filtrelenmis_urunler);
+    }
 }
 
 // 5. Arama Kutusu Event Listener
@@ -811,7 +828,7 @@ function modal_ac(urun_id) {
 
     // İçeriği doldur
     el_modal_ikon.className = "flex items-center justify-center mb-4"; // İkon font classlarını siliyoruz
-    el_modal_ikon.innerHTML = `<img src="${logoUrl}" class="w-16 h-16 object-contain drop-shadow-sm" alt="${urun.name}" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg';" /><span class="material-symbols-outlined text-4xl text-google-blue hidden">${urun.icon_name}</span>`;
+    el_modal_ikon.innerHTML = `<img src="${logoUrl}" class="w-16 h-16 object-contain drop-shadow-sm" alt="${urun.name}" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg';" /><span class="material-symbols-rounded text-4xl text-google-blue hidden">${urun.icon_name}</span>`;
     el_modal_baslik.textContent = urun.name;
     el_modal_kategori.textContent = urun.category;
     const mPClass = urun.pricing === 'Ücretsiz' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800' :
@@ -907,16 +924,19 @@ btn_tema_degistir.addEventListener('click', tema_degistir);
 
 // Başlangıçta temayı kontrol et
 function temayi_ayarla() {
-    if (localStorage.getItem('tema') === 'dark' || (!('tema' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    } else {
+    // Varsayılan olarak hep Dark Mode aç, sadece kullanıcı açıkça 'light' seçtiyse Light Mode yap
+    if (localStorage.getItem('tema') === 'light') {
         document.documentElement.classList.remove('dark');
+    } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('tema', 'dark');
     }
 }
 
 // --- UYGULAMAYI BAŞLAT ---
 function baslat() {
     temayi_ayarla();
+    gorunum_degistir(aktif_gorunum); // Kaydedilmiş görünümü uygula
     kategorileri_yukle();
     urunleri_filtrele_ve_ciz();
 }
@@ -927,6 +947,7 @@ document.addEventListener('DOMContentLoaded', baslat);
 // Görünüm Değiştirici (Grid / List)
 function gorunum_degistir(gorunum) {
     aktif_gorunum = gorunum;
+    localStorage.setItem('gorunum', gorunum); // Kullanıcı seçimini kaydet
     
     const btnGrid = document.getElementById('btn_grid_view');
     const btnList = document.getElementById('btn_list_view');
@@ -1151,6 +1172,7 @@ function zihin_haritasi_ac(merkez_urun_id = null) {
         mindmapNetwork.destroy();
         mindmapNetwork = null;
     }
+}
     
     // --- DİNAMİK NODE ÜRETİMİ ---
     let ham_nodes = [];
@@ -1314,3 +1336,19 @@ function tetikle_zihin_haritasi() {
     modal_kapat();
     setTimeout(() => { zihin_haritasi_ac(u_id); }, 350);
 }
+
+// --- KLAVYE KISAYOLLARI VE RASTGELE SEÇİM ---
+document.addEventListener('keydown', (e) => {
+    // Cmd+K veya Ctrl+K
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        const aramaKutusu = document.getElementById('arama_kutusu');
+        if (aramaKutusu) aramaKutusu.focus();
+    }
+});
+
+window.rastgele_urun_sec = function() {
+    const rIndex = Math.floor(Math.random() * urunler_verisi.length);
+    const secilenUrun = urunler_verisi[rIndex];
+    if (secilenUrun) modal_ac(secilenUrun.id);
+};

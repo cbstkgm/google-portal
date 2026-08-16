@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Custom CSS for Google Portal */
 
 /* Özel Scrollbar (Tarayıcı destekli) */
