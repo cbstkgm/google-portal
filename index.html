@@ -22,6 +22,31 @@
     <!-- Vis.js (Zihin Haritası) -->
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              google: { blue: '#4285F4', red: '#EA4335', yellow: '#FBBC05', green: '#34A853' },
+              surface: { light: '#F8F9FA', dark: '#1F2937' }
+            },
+            animation: { 'fade-in-up': 'fadeInUp 0.5s ease-out forwards' },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
 </head>
 <body class="bg-surface-light text-gray-800 dark:bg-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300 relative min-h-screen">
     
@@ -231,8 +256,8 @@
         </div>
     </div>
 
-    <!-- Uygulama Mantığı (Vite Modülü) -->
-    <script type="module" src="/src/js/main.js"></script>
+    <!-- Uygulama Mantığı -->
+    <script src="app.js"></script>
 
     <!-- Zihin Haritası (Mindmap) Modalı -->
     <div id="mindmap_modali" class="fixed inset-0 z-[60] hidden items-center justify-center bg-white dark:bg-gray-900 transition-opacity duration-300 opacity-0">
