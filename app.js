@@ -1,5 +1,4 @@
-import '../../style.css';
-import './particle_animation.js';
+
 
 // --- VERİ TABANI (JSON/Array) ---
 const urunler_verisi = [
@@ -1174,8 +1173,7 @@ function zihin_haritasi_ac(merkez_urun_id = null) {
         mindmapNetwork.destroy();
         mindmapNetwork = null;
     }
-}
-    
+
     // --- DİNAMİK NODE ÜRETİMİ ---
     let ham_nodes = [];
     let ham_edges = [];
