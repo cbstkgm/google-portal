@@ -17,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/cbstkgm/google-portal/issues"
   },
-  "homepage": "https://github.com/cbstkgm/google-portal#readme"
+  "homepage": "https://github.com/cbstkgm/google-portal#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.5.4",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.2.1"
+  }
 }
